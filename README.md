@@ -217,11 +217,3 @@ SQLite DB (be/instance/database.db)
 node_modules
 
 ---
-
-# 4) Commit & push README + proxy
-Dalla root:
-
-```bash
-git add README.md fe/proxy.conf.json fe/package.json
-git commit -m "Add README and Angular proxy config"
-git push
