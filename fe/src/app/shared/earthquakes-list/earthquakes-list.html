@@ -1,0 +1,87 @@
+<!-- earthquakes-list.component.html -->
+<section class="eq-wrap">
+
+  <div class="eq-header glass-card">
+    <div class="eq-title">
+      <div class="title">Terremoti</div>
+      <div class="subtitle">Dati dal tuo backend • finestra filtrabile</div>
+    </div>
+
+    <span class="spacer"></span>
+
+    <div class="filters">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Ultime ore</mat-label>
+        <input matInput type="number" [value]="hours()" (input)="hours.set($any($event.target).valueAsNumber)">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Magnitudo ≥</mat-label>
+        <input matInput type="number" step="0.1" [value]="minMag()" (input)="minMag.set($any($event.target).valueAsNumber)">
+      </mat-form-field>
+
+      <button mat-raised-button class="refresh-btn" (click)="refresh()" [disabled]="loading()">
+        <mat-icon>refresh</mat-icon>
+        Refresh
+      </button>
+    </div>
+  </div>
+
+  @if (error()) {
+    <div class="glass-card eq-state error">
+      <mat-icon>error</mat-icon>
+      <div>{{ error() }}</div>
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="glass-card eq-state">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      <div class="state-text">Caricamento terremoti…</div>
+    </div>
+  } @else {
+    @if (!hasData()) {
+      <div class="glass-card eq-state">
+        <mat-icon>inbox</mat-icon>
+        <div class="state-text">Nessun terremoto con questi filtri.</div>
+      </div>
+    } @else {
+      <div class="glass-card table-card">
+        <table mat-table [dataSource]="data()" class="mat-elevation-z0">
+
+          <!-- MAG -->
+          <ng-container matColumnDef="mag">
+            <th mat-header-cell *matHeaderCellDef> Mag </th>
+            <td mat-cell *matCellDef="let e">
+              <span class="mag-pill" [class]="magClass(e.mag)">
+                {{ e.mag ?? '—' }}
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- PLACE -->
+          <ng-container matColumnDef="place">
+            <th mat-header-cell *matHeaderCellDef> Luogo </th>
+            <td mat-cell *matCellDef="let e">
+              <div class="place">{{ e.place ?? '—' }}</div>
+              <div class="coords">
+                {{ e.lat.toFixed(4) }}, {{ e.lon.toFixed(4) }} • Prof: {{ e.depth_km ?? '—' }} km
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- TIME -->
+          <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef> Ora </th>
+            <td mat-cell *matCellDef="let e">
+              {{ formatTime(e.time) }}
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['mag','place','time']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['mag','place','time'];"></tr>
+        </table>
+      </div>
+    }
+  }
+</section>

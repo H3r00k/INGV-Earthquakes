@@ -1,0 +1,17 @@
+<!-- hero.component.html -->
+<div class="hero" [style.background-image]="'url('+ backgroundUrl +')'">
+  <div class="hero-overlay">
+    <mat-card class="hero-card glass-card">
+      <mat-card-title class="mat-display-2">Monitora i Terremoti</mat-card-title>
+      <mat-card-subtitle class="mat-headline">Dati in tempo reale da INGV e USGS</mat-card-subtitle>
+      <mat-card-content>
+        <p>Ultimo evento registrato: <strong>M 4.2 - 23 min fa - Tirreno Meridionale</strong></p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" class="big-button" routerLink="firstMap">Vai alla Mappa</button>
+
+        <button mat-stroked-button class="big-button" (click)="goToAccessOrDashboard()">Accedi per allerte personalizzate</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

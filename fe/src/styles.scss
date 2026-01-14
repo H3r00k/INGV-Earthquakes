@@ -1,0 +1,93 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+@include mat.theme((
+  color: (
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette
+  ),
+  typography: (
+    brand-family: 'Roboto, "Helvetica Neue", sans-serif',
+    plain-family: 'Roboto, "Helvetica Neue", sans-serif'
+  ),
+  density: 0
+));
+
+/// Background con macchie di lava ribollenti – più rosso visibile ma soft
+body {
+  margin: 0;
+  height: 100%;
+  background: #0a0e17; // base scura
+  color: #e5e7eb;
+  color-scheme: dark;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  // Macchia lava 1 – rossa/arancione in basso a sinistra (più visibile)
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      circle at 20% 80%,
+      rgba(200, 30, 0, 0.45) 0%,      // rosso più intenso e visibile
+      transparent 50%
+    );
+    opacity: 0.55;                      // aumentato da 0.4 → più presenza senza dominare
+    animation: lava-bubble-1 45s ease-in-out infinite alternate; // un po' più lento
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  // Macchia lava 2 – glow centrale rosso (più rosso sotto)
+  &::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(
+      circle at 50% 40%,
+      rgba(220, 60, 10, 0.40) 0%,     // rosso-arancione più caldo
+      transparent 65%
+    );
+    opacity: 0.60;                      // aumentato da 0.35 → glow centrale più percepibile
+    animation: lava-bubble-2 60s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  // Terza macchia – glow arancione vivo, più visibile
+  &::before::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 70% 60%,
+      rgba(255, 120, 0, 0.35) 0%,     // arancione più vivo e visibile
+      transparent 45%
+    );
+    opacity: 0.50;                      // aumentato da 0.25 → si vede meglio
+    animation: lava-bubble-3 55s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+}
+
+// Animazioni – un po' più ribollenti ma sempre lente
+@keyframes lava-bubble-1 {
+  0%   { opacity: 0.45; transform: scale(1.00) translate(0, 0); filter: blur(5px); }
+  50%  { opacity: 0.70; transform: scale(1.18) translate(5%, 6%); filter: blur(3px); }
+  100% { opacity: 0.50; transform: scale(1.10) translate(-5%, -6%); filter: blur(6px); }
+}
+
+@keyframes lava-bubble-2 {
+  0%   { opacity: 0.40; transform: scale(1.00); }
+  50%  { opacity: 0.65; transform: scale(1.14) translate(-3%, 4%); }
+  100% { opacity: 0.45; transform: scale(1.08) translate(3%, -3%); }
+}
+
+@keyframes lava-bubble-3 {
+  0%   { opacity: 0.30; transform: scale(1.00) translate(0, 0); }
+  50%  { opacity: 0.55; transform: scale(1.20) translate(6%, -3%); }
+  100% { opacity: 0.35; transform: scale(1.10) translate(-4%, 4%); }
+}

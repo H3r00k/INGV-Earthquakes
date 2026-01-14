@@ -1,0 +1,73 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 64px;
+  padding: 0 12px;
+}
+
+.nav-inner {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.glass {
+  background: rgba(17, 24, 39, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.05;
+}
+
+.brand-title {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.brand-sub {
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.icon-btn {
+  border-radius: 14px;
+}
+
+.glass-btn {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14) !important;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+}
+
+.glass-cta {
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.menu-header {
+  padding: 10px 16px 6px;
+}
+
+.menu-name {
+  font-weight: 700;
+}
+
+.menu-mail {
+  font-size: 12px;
+  opacity: 0.75;
+}

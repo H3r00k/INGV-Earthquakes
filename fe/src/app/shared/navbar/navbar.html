@@ -1,0 +1,50 @@
+<mat-toolbar class="nav glass">
+  <div class="nav-inner">
+    <button mat-icon-button class="icon-btn" aria-label="Home" (click)="goHome()">
+      <mat-icon>public</mat-icon>
+    </button>
+
+    <div class="brand" (click)="goHome()" role="button" tabindex="0">
+      <span class="brand-title">QuakeWatch</span>
+      <span class="brand-sub">INGV • ultime 24h</span>
+    </div>
+
+    <span class="spacer"></span>
+
+    @if (auth.currentUser; as user) {
+      <!-- Logged -->
+      <button mat-stroked-button class="glass-btn" (click)="goDashboard(user.id)">
+        Dashboard
+      </button>
+
+      <button mat-icon-button class="icon-btn" [matMenuTriggerFor]="userMenu" aria-label="Profilo">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <div class="menu-header">
+          <div class="menu-name">{{ user.name }} {{ user.lastname }}</div>
+          <div class="menu-mail">{{ user.email }}</div>
+        </div>
+        <mat-divider></mat-divider>
+
+        @if (user.role === 'ADMIN') {
+          <button mat-menu-item (click)="syncNow()">
+            <mat-icon>sync</mat-icon>
+            <span>Sync adesso</span>
+          </button>
+        }
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    } @else {
+      <!-- Not logged -->
+      <button mat-raised-button class="glass-cta" (click)="goAccessOrDashboard()">
+        Accedi
+      </button>
+    }
+  </div>
+</mat-toolbar>
